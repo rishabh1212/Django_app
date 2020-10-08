@@ -13,3 +13,5 @@ services:
       MYSQL_USER: api-user
       MYSQL_PASSWORD: api-user
       MYSQL_DATABASE: UsersMovies
+      MYSQL_HOST: user_movies_db
+      MYSQL_PORT: 5432
