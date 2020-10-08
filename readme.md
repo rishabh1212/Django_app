@@ -80,3 +80,49 @@ Check if the favorties list is updated by running
 	- Postgresql is prefered over Mysql in case of Django due to less support
 	- `movies_api/movies_api` is like wrapper project for the main app `movies_api/movies_app` which contains all api endpoints
 	- Blueprint of tables of interest are created in `models.py` with many-many relationship between `User`, `movie`
+
+## Output
+1. `curl -H "X-API-KEY: API_KEY" localhost:8000/movies_app/movies?search=jurassic`
+
+```json
+{
+    "tt0119567": {
+        "original_title": "The Lost World: Jurassic Park",
+        "overview": "Four years after Jurassic Park's genetically bred dinosaurs ran amok, multimillionaire John Hammond shocks chaos theorist Ian Malcolm by revealing that Hammond has been breeding more beasties at a secret location. Malcolm, his paleontologist ladylove and a wildlife videographer join an expedition to document the lethal lizards' natural behavior in this action-packed thriller."
+    },
+    "tt0163025": {
+        "original_title": "Jurassic Park III",
+        "overview": "In need of funds for research, Dr. Alan Grant accepts a large sum of money to accompany Paul and Amanda Kirby on an aerial tour of the infamous Isla Sorna. It isn't long before all hell breaks loose and the stranded wayfarers must fight for survival as a host of new -- and even more deadly -- dinosaurs try to make snacks of them."
+    },
+    "tt0369610": {
+        "original_title": "Jurassic World",
+        "overview": "Twenty-two years after the events of Jurassic Park, Isla Nublar now features a fully functioning dinosaur theme park, Jurassic World, as originally envisioned by John Hammond."
+    },
+    "tt2071491": {
+        "original_title": "Jurassic Shark",
+        "overview": "When an oil company unwittingly unleashes a prehistoric shark from its icy  prison, the Jurassic killer maroons a group of art thieves and a group of  college students on an abandoned island"
+    },
+    "tt2905674": {
+        "original_title": "Jurassic City",
+        "overview": "When a top-secret laboratory is unexpectedly breached, thousands of rampaging raptors are unleashed on Los Angeles! A black-ops unit is mobilized to contain the creatures before they cause city-wide chaos. Simultaneously, a truckload of raptors is rerouted to a nearby prison. Upon their escape, these ferocious flesh-eaters are beyond containment. This is Jurassic judgment night for smoking hot sorority girls, sinister scientists, muscle-bound military and doomed death-row inmates! It's about to get bloody in Jurassic City!"
+    }
+
+```
+
+2. `curl -H "X-API-KEY: hbFnSrd7.tzm08395Gw88AYJYojmhJyNcc2vxXk1e" localhost:8000/movies_app/movie/tt0369610`
+
+```json
+{"imdb_id": "tt0369610", "original_title": "Jurassic World", "overview": "Twenty-two years after the events of Jurassic Park, Isla Nublar now features a fully functioning dinosaur theme park, Jurassic World, as originally envisioned by John Hammond."}
+```
+
+3. `curl -X POST -c cookie.txt -b cookie.txt -d "csrfmiddlewaretoken=${csrftoken}" -H "X-CSRFToken:${csrftoken}" localhost:8000/movies_app/favorite/tt0369610`
+
+```json
+{"message": "Added to favorites"}
+```
+
+4. `curl -c cookie.txt -b cookie.txt localhost:8000/movies_app/favorites`
+
+```json
+{"tt0035423": "Kate & Leopold", "tt0369610": "Jurassic World"}
+```
