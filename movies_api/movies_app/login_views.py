@@ -1,5 +1,6 @@
 from django.views.decorators.http import require_http_methods
 from django.contrib.auth import authenticate, login as d_login
+# Important for get method validate csrf
 from django.views.decorators.csrf import ensure_csrf_cookie
 from django.http import JsonResponse
 from movies_app.utils import *

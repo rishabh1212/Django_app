@@ -1,8 +1,9 @@
 import json
 
+# Rest framework equivalent for require_http_methods
 from rest_framework.decorators import api_view, permission_classes
+# Used to check if Key is present in HTTP header
 from rest_framework_api_key.permissions import HasAPIKey
-from rest_framework_api_key.models import APIKey
 from movies_app.models import movie
 from django.http import JsonResponse
 from django.http import HttpResponse
