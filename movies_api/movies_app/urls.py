@@ -1,7 +1,8 @@
-from django.urls import path
+from django.urls import path, re_path
 
-from . import views
+from . import login_views
+from . import apikey_views
 
 urlpatterns = [
-    path('', views.index, name='index'),
+    re_path(r'^login/?', login_views.login, name='login'),
 ]
