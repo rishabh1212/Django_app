@@ -2,3 +2,5 @@ Django
 psycopg2
 pandas
 sqlalchemy
+djangorestframework
+djangorestframework-api-key

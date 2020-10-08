@@ -29,6 +29,7 @@ DEBUG = True
 
 ALLOWED_HOSTS = []
 
+API_KEY_CUSTOM_HEADER = "HTTP_X_API_KEY"
 
 # Application definition
 
@@ -39,7 +40,9 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-    'movies_app.apps.MoviesAppConfig'
+    'movies_app.apps.MoviesAppConfig',
+    "rest_framework",
+    "rest_framework_api_key",
 ]
 
 MIDDLEWARE = [
