@@ -1,0 +1,15 @@
+version: "3.8"
+services:
+  user_movies_db:
+    image: mysql/mysql-server:8.0.21
+    environment:
+      MYSQL_USER: api-user
+      MYSQL_PASSWORD: api-user
+      MYSQL_DATABASE: UsersMovies
+
+  movie_api:
+    build: movie_api
+    environment:
+      MYSQL_USER: api-user
+      MYSQL_PASSWORD: api-user
+      MYSQL_DATABASE: UsersMovies
