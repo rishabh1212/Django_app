@@ -1,2 +1,4 @@
-mysqlclient
 Django
+psycopg2
+pandas
+sqlalchemy

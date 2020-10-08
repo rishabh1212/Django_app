@@ -1,19 +1,16 @@
 import pandas as pd
-import mysql.connector
+import os
+from sqlalchemy import create_engine
 
-try:
-	cnx = mysql.connector.connect(user='scott', password='password',
-	                              host='127.0.0.1',
-	                              database='employees')
-	pd.read_csv('db/movies.csv').to_sql(con=cnx, name='movies', if_exists='replace', flavor='mysql')
-
-	cnx.close()
-except mysql.connector.Error as err:
-	if err.errno == errorcode.ER_ACCESS_DENIED_ERROR:
-	    print("Something is wrong with your user name or password")
-	elif err.errno == errorcode.ER_BAD_DB_ERROR:
-	    print("Database does not exist")
-	else:
-	    print(err)
-	else:
-	  	cnx.close()
+engine = create_engine(
+	'postgresql://{}:{}@{}:{}/{}'.format(
+		os.environ.get('POSTGRES_USER'),
+		os.environ.get('POSTGRES_PASSWORD'),
+		os.environ.get('POSTGRES_HOST'),
+		os.environ.get('POSTGRES_PORT'),
+		os.environ.get('POSTGRES_DB')
+	)
+)
+pd.read_csv('movies.csv')[
+	['imdb_id', 'original_title', 'overview']
+].dropna().to_sql('movies_app_movie', con=engine, if_exists="append", index=False)

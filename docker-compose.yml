@@ -1,17 +1,24 @@
 version: "3.8"
 services:
   user_movies_db:
-    image: mysql/mysql-server:8.0.21
+    image: postgres:13.0-alpine
     environment:
-      MYSQL_USER: api-user
-      MYSQL_PASSWORD: api-user
-      MYSQL_DATABASE: UsersMovies
+      POSTGRES_PASSWORD: 'api-user'
+      POSTGRES_USER: 'api-user'
+      POSTGRES_DB: 'UsersMovies'
 
   movie_api:
-    build: movie_api
+    build: ./movies_api
+    entrypoint: ['/bin/bash', '-c', '/run.sh']
     environment:
-      MYSQL_USER: api-user
-      MYSQL_PASSWORD: api-user
-      MYSQL_DATABASE: UsersMovies
-      MYSQL_HOST: user_movies_db
-      MYSQL_PORT: 5432
+      POSTGRES_PASSWORD: 'api-user'
+      POSTGRES_USER: 'api-user'
+      POSTGRES_DB: 'UsersMovies'
+      POSTGRES_HOST: user_movies_db
+      POSTGRES_PORT: 5432
+    volumes:
+      - ~/movies_app:/movies_app
+    depends_on:
+      - user_movies_db
+    links:
+      - user_movies_db:user_movies_db
