@@ -16,6 +16,8 @@ services:
       POSTGRES_DB: 'UsersMovies'
       POSTGRES_HOST: user_movies_db
       POSTGRES_PORT: 5432
+    ports:
+      - 8000:8000
     volumes:
       - ~/movies_app:/movies_app
     depends_on:
